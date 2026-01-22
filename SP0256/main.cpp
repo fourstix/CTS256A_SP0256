@@ -44,7 +44,12 @@
 #include <iostream>
 #include <memory>
 #include <string.h>
+#if defined(__linux__)
 #include <strings.h>
+#elif defined(_WIN32)
+#define strerror_r(errno,buf,len) strerror_s(buf,len,errno)
+#define strcasecmp _stricmp
+#endif
 
 using namespace sp0256_al2;
 
