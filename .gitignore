@@ -1,0 +1,19 @@
+# CMake build directory
+/build*/
+
+# Visual Studio (IntelliSense/cache)
+.vs/
+/out/
+
+# IDE specific files
+.idea/         # CLion
+*.user         # QtCreator, Visual Studio
+
+# CMake generated files that may be in the source dir (less common in modern projects)
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+CTestTestfile.cmake
+compile_commands.json
+_deps/
