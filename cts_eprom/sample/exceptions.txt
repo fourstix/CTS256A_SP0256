@@ -1,0 +1,101 @@
+; Exception-Word Encoding Scheme:
+; 
+; To store a unique word or symbol and its corresponding allophone address string 
+; in an efficient and flexible manner, the following encoding format was derived:
+; 
+;    <[encoded word or symbol]< = [encoded allophone address(es)]
+; 
+;    where < equals 13H
+;          [ equals 40H
+;          ] equals 80H
+; 
+; The first and last bytes is 13H. This informs the code-to-speech algorithm 
+; that the word or symbol is not a prefix or suffix.
+; If the word or symbol is an individual letter, then the representation of it 
+; between the brackes is an FFH; this includes the value of the left and right
+; brackets. If it is a number or punctuation, then it is represented by its 
+; value from TABLE-1 plus the value of the left and right brackets.
+; 
+; Otherwise.
+; (1) The first letter in the word or symbol is always to be ignored; this does 
+;     not apply to numbers or punctuation.
+; (2) The next letter in the word is represented by the value of the letter from 
+;     TABLE-1, plus the value of the left bracket "[" which is 40H.
+; (3) The following letter(s), if and only if it is not the last letter in the 
+;     word or symbol, is represented solely by its value from TABLE-1.
+; (4) The last letter in the word or symbol is represented by the value of the 
+;     letter from TABLE-1, plus the value of the right bracket "]" which is 80H.
+;
+; NOTE: the values from TABLE-1 are represented in the source code as the ASCII values of the letter or number - 20H
+;
+; The allophone address string is encoded in a similar manner:
+; 
+; If only one allophone is used for the pronounciation, it is represented by 
+; its value from TABLE-2, plus the value of the left "[" and right "]" 
+; brackets which are 40H and 80H respectively.
+; 
+; Otherwise:
+; 
+; (1) The first allophone is represented by its value from TABLE-2, plus the 
+;     value of the left bracket "[" which is 40H.
+; (2) The following allophone(s), if and only if it is not the last allophone in
+;     the string, is represented by its value from TABLE-2.
+; (3) The last allophone is represented by its value from TABLE-2 
+;      plus the value of the right bracket "]" which is 80H.
+; 
+; Example: To encode "Au" to pronounce as "GOLD"
+;          <[Au]< = [GG2 OW LL DD1]
+;          13, F5, 13, 7D, 35, 2D, 95 <--This line is ready to store in
+;              ^                         EXCEPTION-WORD EPROM under the
+;              |                         "A" category. (The encoded string
+;              |                         is shown in Hex notation.)
+;              |
+;              +--Remember, throw away the first letter (in this case an "A"), 
+;                 then find the value of the next letter in TABLE-1 and add 
+;                 40H plus 80H to it so as to represent the left "[" and right "]" brackets.
+; 
+; For words, the leading "<" (which marks the start of a word) is mandatory. 
+; The trailing "<" (which marks the end of the word) is optional, and if it's 
+; left off it marks the word as a prefix form. This allows constructs such as:
+; 
+;    <[CAP]A=[KK1 EY PP] ; CAPABILITY, CAPABLE
+; 
+; Without this, "capable" would be pronounced "cap-able", whereas it ought to 
+; be "cape-able".
+; 
+; For symbols, both the leading and trailing "<"s are optional. This allows symbols
+; to occur in the middle of a word (e.g. "up&down" would become "up and down" with 
+; the example exception list).        
+
+; encoded exception words
+<[ANSI]< = [AE NN1 SS IY]
+<[ANSWER]< = [AE NN1 SS ER1]
+<[APRIL]< = [EY PA3 PP RR2 IH IH LL]
+<[CAP]A = [KK1 EY PP]
+<[FEBRUARY]< = [FF EH EH PA1 BR RR2 UW2 XR IY]
+<[FRIDAY]< = [FF RR2 AY PA2 DD2 EY]
+<[GAUGE]< = [GG1 EY PA2 JH]
+<[GOODBYE]< = [GG2 UH UH DD1 PA3 BB2 AY]
+<[ID]< = [AY DD2 EH NN1 PA3 TT2 IH FF IH PA3 KK1 EY SH AX NN1]
+<[ISLE]< = [AY PA2 EL]
+<[ISLAND]< = [AY PA2 EL AE NN1 DD1]
+<[JULY]< = [JH UW1 LL AY]
+<[LIVED]< = [LL IH VV PA4 DD1]
+<[MINUTE] = [MM IH NN1 IH PA3 TT2]
+<[MONITOR] = [MM AA AA PA1 NN1 IH PA1 TT2 ER1]
+<[OH]< = [OW]
+<[PURPOSE]< = [PP ER1 PP AX SS SS]
+<[READY]< = [RR1 EH EH PA1 DD2 IY]
+<[SWEAT] = [SS SS WW EH EH PA3 TT2]
+<[ROBOT] = [RR1 OW PA2 BB2 AA PA3 TT2]
+<[TOTAL]< = [TT2 OW TT1 PA1 AX EL]
+<[TUESDAY]< = [TT2 UW2 ZZ PA2 DD2 EY]
+<[USERID]< = [YY1 UW1 ZZ ER1 PA1 AY PA1 DD2 EH NN1 PA3 TT2 IH FF IH PA3 KK1 EY SH AX NN1]
+<[WEDNESDAY]< = [WW EH EH NN1 ZZ PA2 DD2 EY]
+<[WE'RE]< = [WW IY ER2]
+<[YOU'RE]< = [YY2 OH OR]
+[#] = [HH1 AE SH PA3 TT2 AE GG3 PA1]
+[&] = [AE NN1 DD1 PA1]
+[/] = [SS LL AE SH PA1]
+[+] = [PP LL AX AX SS SS PA1]
+[@] = [AE TT2 PA1]
