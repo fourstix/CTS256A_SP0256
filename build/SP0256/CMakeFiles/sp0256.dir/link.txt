@@ -1,0 +1,1 @@
+/usr/bin/aarch64-linux-gnu-g++ -g CMakeFiles/sp0256.dir/main.cpp.o CMakeFiles/sp0256.dir/audio.cpp.o CMakeFiles/sp0256.dir/sp0256_012.cpp.o CMakeFiles/sp0256.dir/sp0256_al2.cpp.o CMakeFiles/sp0256.dir/sp0256.cpp.o CMakeFiles/sp0256.dir/SystemClock.cpp.o CMakeFiles/sp0256.dir/WaveWriter.cpp.o CMakeFiles/sp0256.dir/Win32Audio.cpp.o -o sp0256  -lwinmm

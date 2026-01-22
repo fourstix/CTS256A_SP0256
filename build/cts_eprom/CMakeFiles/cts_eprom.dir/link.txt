@@ -1,0 +1,1 @@
+/usr/bin/aarch64-linux-gnu-g++ -g CMakeFiles/cts_eprom.dir/main.cpp.o CMakeFiles/cts_eprom.dir/allophone.cpp.o CMakeFiles/cts_eprom.dir/cts_exception.cpp.o CMakeFiles/cts_eprom.dir/exception_rom.cpp.o -o cts_eprom

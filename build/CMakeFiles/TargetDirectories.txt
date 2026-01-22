@@ -1,0 +1,11 @@
+/home/tony/Documents/projects/CTS256A_SP0256/build/CMakeFiles/edit_cache.dir
+/home/tony/Documents/projects/CTS256A_SP0256/build/CMakeFiles/rebuild_cache.dir
+/home/tony/Documents/projects/CTS256A_SP0256/build/CTS256A-AL2/CMakeFiles/cts256a-al2.dir
+/home/tony/Documents/projects/CTS256A_SP0256/build/CTS256A-AL2/CMakeFiles/edit_cache.dir
+/home/tony/Documents/projects/CTS256A_SP0256/build/CTS256A-AL2/CMakeFiles/rebuild_cache.dir
+/home/tony/Documents/projects/CTS256A_SP0256/build/SP0256/CMakeFiles/sp0256.dir
+/home/tony/Documents/projects/CTS256A_SP0256/build/SP0256/CMakeFiles/edit_cache.dir
+/home/tony/Documents/projects/CTS256A_SP0256/build/SP0256/CMakeFiles/rebuild_cache.dir
+/home/tony/Documents/projects/CTS256A_SP0256/build/cts_eprom/CMakeFiles/cts_eprom.dir
+/home/tony/Documents/projects/CTS256A_SP0256/build/cts_eprom/CMakeFiles/edit_cache.dir
+/home/tony/Documents/projects/CTS256A_SP0256/build/cts_eprom/CMakeFiles/rebuild_cache.dir
