@@ -86,7 +86,7 @@ int main(int argc, char* argv[])
             return -1;
         }
 
-        process_phonemes(std::cin, output);
+        process_phonemes(input, output);
 
         input.close();
         output.close();
