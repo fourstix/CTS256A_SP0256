@@ -7,19 +7,13 @@
 
 namespace fs = std::filesystem;
 
-void process_phonemes(std::istream& input, std::ostream& output)
+void process_phonemes(const std::vector<char>& input, std::ostream& output)
 {
-    // Read byte by byte, apply operation, and write to the output file
-    char byte;
     unsigned char phoneme;
 
-    while (input.get(byte)) {
-        // Perform the bitwise operation: byte AND (~0x40)
-        // Need to cast to unsigned char for safe bitwise operation, then back to char for writing.
-        unsigned char ubyte = static_cast<unsigned char>(byte);
-
-        if (ubyte & 0x80) {
-            phoneme = ubyte & 0x3f;
+    for (auto& byte : input) {
+        if (byte & 0x80) {
+            phoneme = byte & 0x3f;
 
             // Write the modified byte to the output file
             output.write(reinterpret_cast<const char*>(&phoneme), sizeof(phoneme));
@@ -45,6 +39,12 @@ int main(int argc, char* argv[])
             std::cerr << "Must provide output file name if reading stdin.\n";
         }
 
+        // On systems like Windows, you must reopen stdin in binary mode.
+        // On Unix/POSIX systems, stdin is already binary by default.
+    #if defined(_WIN32) || defined(_WIN64)
+        std::freopen(nullptr, "rb", stdin);
+    #endif
+
         // Open output file in binary mode
         std::ofstream output(argv[2], std::ios::out | std::ios::binary);
         if (!output.is_open()) {
@@ -52,7 +52,9 @@ int main(int argc, char* argv[])
             return -1;
         }
 
-        process_phonemes(std::cin, output);
+        std::vector<char> data{std::istreambuf_iterator<char>(std::cin), {}};
+
+        process_phonemes(data, output);
 
         output.close();
     }
@@ -89,7 +91,9 @@ int main(int argc, char* argv[])
             return -1;
         }
 
-        process_phonemes(input, output);
+        std::vector<char> data{std::istreambuf_iterator<char>(input), {}};
+
+        process_phonemes(data, output);
 
         input.close();
         output.close();
