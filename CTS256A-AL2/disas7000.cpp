@@ -195,7 +195,7 @@ void setLabelGen( uint val )
 // get label and offset of given code address
 char* getLabelOffset(uint val)
 {
-    static char name[40] ;
+    static char name[60] ;
 	unsigned i;
 
     symbol_t symtofind[1];
