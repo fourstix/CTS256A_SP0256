@@ -17,10 +17,13 @@ void process_phonemes(std::istream& input, std::ostream& output)
         // Perform the bitwise operation: byte AND (~0x40)
         // Need to cast to unsigned char for safe bitwise operation, then back to char for writing.
         unsigned char ubyte = static_cast<unsigned char>(byte);
-        phoneme = ubyte & (~0x40);
 
-        // Write the modified byte to the output file
-        output.write(reinterpret_cast<const char*>(&phoneme), sizeof(phoneme));
+        if (ubyte & 0x80) {
+            phoneme = ubyte & 0x3f;
+
+            // Write the modified byte to the output file
+            output.write(reinterpret_cast<const char*>(&phoneme), sizeof(phoneme));
+        }
     }
 
     // Append 0xff to the end of the output file

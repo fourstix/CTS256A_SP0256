@@ -386,7 +386,15 @@ int main(int argc, char* argv[])
 				}
 				break;
 			case 'B':	// Binary file mode
-				al2 = pistr->get() & 0x3F;
+				while (!pistr->eof())
+				{
+					al2 = pistr->get();
+					if (al2 & 0x80)
+					{
+						al2 &= 0x3f;
+						break;
+					}
+				}
 				if ( pistr->eof() )
 				{
 					eos = 1;

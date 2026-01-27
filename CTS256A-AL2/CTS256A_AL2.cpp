@@ -216,7 +216,7 @@ uchar CTS256A_AL2_Data_InOut::write( ushort addr, uchar data )
 			if ( mode_ == 'T' )
 				ostr_ << " " << SP0256_labels[data];
 			else
-				ostr_.put( data | 0x40 );
+				ostr_.put( data | 0x80 );
 			ostr_.flush();
 		}
 
